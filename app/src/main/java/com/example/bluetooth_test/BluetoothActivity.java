@@ -28,6 +28,7 @@ public class BluetoothActivity extends AppCompatActivity {
 
     public static UUID MY_UUID= UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");//符合UUID格式就行。
     Button back=null;
+    Button next=null;
     ListView btList=null;
     Intent intent=null;
     //蓝牙操作
@@ -45,10 +46,13 @@ public class BluetoothActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bluetooth);
+        if (getSupportActionBar() != null){
+            getSupportActionBar().hide();
+        }
 
         back=(Button) findViewById(R.id.back);
         btList=(ListView) findViewById(R.id.btList);
-
+        next=(Button)findViewById(R.id.next);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,6 +64,19 @@ public class BluetoothActivity extends AppCompatActivity {
                 }
                 intent=new Intent(BluetoothActivity.this,MainActivity.class);
                 startActivity(intent);
+            }
+        });
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(bluetoothSocket==null || !bluetoothSocket.isConnected()){//先判断连接上了
+                    Toast.makeText(BluetoothActivity.this,"未建立连接",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    intent=new Intent(BluetoothActivity.this,Plotactivity.class);
+                    startActivity(intent);
+
+                }
             }
         });
 
