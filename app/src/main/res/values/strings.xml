@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Bluetooth_Test</string>
+    <string name="app_name">Face Tracker</string>
     <string name="connect">Connect</string>
     <string name="send_a">Send \'a\'</string>
     <string name="send_b">Send \'b\'</string>

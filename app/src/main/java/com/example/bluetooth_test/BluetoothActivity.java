@@ -86,6 +86,7 @@ public class BluetoothActivity extends AppCompatActivity {
         if(!bluetoothAdapter.isEnabled()){
             intent=new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(intent,1);//不用管，填1就好，表示打开蓝牙的
+            Toast.makeText(this, "开启蓝牙！", Toast.LENGTH_SHORT).show();
         }
         @SuppressLint("MissingPermission")
         Set<BluetoothDevice> pairedDevices=bluetoothAdapter.getBondedDevices();

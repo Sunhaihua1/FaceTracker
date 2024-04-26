@@ -25,7 +25,7 @@ class Plotactivity : AppCompatActivity() {
         val viewPager: ViewPager = binding.viewPager
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = binding.tabs
-        tabs.setupWithViewPager(viewPager)
+        tabs.setupWithViewPager(viewPager);
 
     }
 }

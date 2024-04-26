@@ -28,26 +28,11 @@ class MainActivity : AppCompatActivity() {
         }
         setContentView(R.layout.activity_main)
 
-//        var myBluetooth = MyBluetooth(this)
-//
-//        val sendAButton: Button = findViewById(R.id.btnSendA)
-//        sendAButton.setOnClickListener { myBluetooth.writeData("a") }
-//
-//        val sendBButton: Button = findViewById(R.id.btnSendB)
-//        sendBButton.setOnClickListener { myBluetooth.writeData("b") }
-//
-//        val receiveButton: Button = findViewById(R.id.btnReceive)
-//        receiveButton.setOnClickListener {
-//            val s = myBluetooth.readData()
-//            Toast.makeText(applicationContext, "Received text: $s", Toast.LENGTH_LONG).show()
-//        }
-//
         val connectButton: Button = findViewById(R.id.btnConnect)
         connectButton.setOnClickListener {
             intent = Intent(this@MainActivity, BluetoothActivity::class.java)
             startActivity(intent)
         }
-
 
     }
 }
