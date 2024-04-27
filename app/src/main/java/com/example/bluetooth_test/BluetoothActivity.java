@@ -73,6 +73,12 @@ public class BluetoothActivity extends AppCompatActivity {
                     Toast.makeText(BluetoothActivity.this,"未建立连接",Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    if(bluetoothSocket!=null&&bluetoothSocket.isConnected()){//先判断连接上了
+                        connectedThread=new ConnectedThread(bluetoothSocket);
+                        connectedThread.start();
+                        Toast.makeText(BluetoothActivity.this,"已开启数据线程",Toast.LENGTH_SHORT).show();
+                    }
+
                     intent=new Intent(BluetoothActivity.this,Plotactivity.class);
                     startActivity(intent);
 
@@ -118,7 +124,10 @@ public class BluetoothActivity extends AppCompatActivity {
                 //开始连接新的设备对象
                 connectThread=new ConnectThread(readyDevices.get(position));
                 connectThread.start();//start（）函数开启线程，执行操作
-                Toast.makeText(BluetoothActivity.this, "已连接"+readyDevices.get(position).getName(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BluetoothActivity.this, "已连接"+readyDevices.get(position).getName(), Toast.LENGTH_SHORT).show();
+//                intent=new Intent(BluetoothActivity.this,Plotactivity.class);
+//                startActivity(intent);
+
             }
         });
 
