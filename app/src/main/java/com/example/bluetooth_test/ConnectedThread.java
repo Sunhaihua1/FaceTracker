@@ -10,6 +10,7 @@ import com.example.bluetooth_test.MainActivity;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -19,6 +20,7 @@ public class ConnectedThread extends Thread{
     Queue<Byte> queueBuffer = new LinkedList();
     byte[] packBuffer = new byte[1024];
     int k = 0;
+    public static float data = 0;
     BluetoothSocket bluetoothSocket=null;
     InputStream inputStream=null;//获取输入数据
     OutputStream outputStream=null;//获取输出数据
@@ -48,12 +50,14 @@ public class ConnectedThread extends Thread{
         byte valid = 0;
         for (int i = 0; i < k - 1; i ++) {
             valid += packBuffer[i];
-            Log.e("TAG", "i  +" + i+ " " + String.valueOf(packBuffer[i]));
+//            Log.e("TAG", "i  +" + i+ " " + String.valueOf(packBuffer[i]));
 
         }
         if (valid == tmp) {
             for (int i = 0; i < k - 1; i +=2) {
-                int num = (short) packBuffer[i + 1] << 8 | 0xFF & (short) packBuffer[0];
+                float num = (180.0F * ((short) packBuffer[i + 1] << 8 | 0xFF & (short) packBuffer[0]) / 32768.0F) ;
+                Log.e("TAG", "i  +" + i+ " " + String.valueOf(num));
+                data = num;
             }
         }
 

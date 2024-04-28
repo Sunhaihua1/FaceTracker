@@ -125,8 +125,6 @@ public class BluetoothActivity extends AppCompatActivity {
                 connectThread=new ConnectThread(readyDevices.get(position));
                 connectThread.start();//start（）函数开启线程，执行操作
                     Toast.makeText(BluetoothActivity.this, "已连接"+readyDevices.get(position).getName(), Toast.LENGTH_SHORT).show();
-//                intent=new Intent(BluetoothActivity.this,Plotactivity.class);
-//                startActivity(intent);
 
             }
         });
