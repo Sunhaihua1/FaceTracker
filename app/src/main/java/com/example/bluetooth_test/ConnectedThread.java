@@ -18,6 +18,7 @@ import java.util.Queue;
 //连接了蓝牙设备建立通信之后的数据交互线程类
 public class ConnectedThread extends Thread{
     Queue<Byte> queueBuffer = new LinkedList();
+    public static Queue<Sensor_data> data_sensor = new LinkedList();
     byte[] packBuffer = new byte[1024];
     int k = 0;
     public static float data = 0;
@@ -41,11 +42,11 @@ public class ConnectedThread extends Thread{
         outputStream=outputTemp;
     }
     public void process_packet() {
-         Log.e("TAG", "INTO");
-
+//         Log.e("TAG", "INTO");
+//
         if (k <= 0) return;
         byte tmp = packBuffer[k - 1];
-        Log.e("TAG", String.valueOf(tmp));
+//        Log.e("TAG", String.valueOf(tmp));
 
         byte valid = 0;
         for (int i = 0; i < k - 1; i ++) {
@@ -53,13 +54,31 @@ public class ConnectedThread extends Thread{
 //            Log.e("TAG", "i  +" + i+ " " + String.valueOf(packBuffer[i]));
 
         }
+        Sensor_data sendor = new Sensor_data();
         if (valid == tmp) {
             for (int i = 0; i < k - 1; i +=2) {
                 float num = (180.0F * ((short) packBuffer[i + 1] << 8 | 0xFF & (short) packBuffer[0]) / 32768.0F) ;
-                Log.e("TAG", "i  +" + i+ " " + String.valueOf(num));
+                if ((i % 3) == 0) {
+                    sendor.x = num;
+                }
+                else if ((i % 3) == 1) {
+                    sendor.y = num;
+                }
+                else {
+                    sendor.z = num;
+                }
+
+//                Log.e("TAG", "i  +" + i+ " " + String.valueOf(num));
                 data = num;
             }
+            if (data_sensor.size() > 20) {
+                data_sensor.poll();
+            }
+            data_sensor.add(sendor);
+
+
         }
+
 
     }
     @Override
@@ -71,7 +90,7 @@ public class ConnectedThread extends Thread{
             //发送数据
             try {
                 int i = inputStream.read(arrayOfByte);
-                Log.e("TAG", String.valueOf(i));
+//                Log.e("TAG", String.valueOf(i));
                 for (int j = 0; j < i; j ++) {
                     queueBuffer.add(arrayOfByte[j]);
                 }
