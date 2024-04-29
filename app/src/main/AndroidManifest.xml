@@ -36,9 +36,6 @@
         android:theme="@style/Theme.Bluetooth_Test"
         tools:targetApi="31">
         <activity
-            android:name=".PlotAll"
-            android:exported="false" />
-        <activity
             android:name=".Plotactivity"
             android:exported="false"
             android:label="@string/title_activity_plotactivity"

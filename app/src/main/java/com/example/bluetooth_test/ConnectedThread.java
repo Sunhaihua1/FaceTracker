@@ -71,7 +71,7 @@ public class ConnectedThread extends Thread{
 //                Log.e("TAG", "i  +" + i+ " " + String.valueOf(num));
                 data = num;
             }
-            if (data_sensor.size() > 20) {
+            if (data_sensor.size() > 15) {
                 data_sensor.poll();
             }
             data_sensor.add(sendor);

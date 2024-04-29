@@ -24,15 +24,17 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
     override fun getItem(position: Int): Fragment {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment.
-        return PlaceholderFragment.newInstance(position )
+//        return PlaceholderFragment.newInstance(position )
+        return AllFragment.newInstance(position )
     }
 
     override fun getPageTitle(position: Int): CharSequence {
-        return context.resources.getString(TAB_TITLES[position])
+        return "总传感器"
+//        return context.resources.getString(TAB_TITLES[position])
     }
 
     override fun getCount(): Int {
         // Show 2 total pages.
-        return 4
+        return 1
     }
 }
