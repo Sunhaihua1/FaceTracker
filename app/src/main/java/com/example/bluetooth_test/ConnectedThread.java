@@ -18,8 +18,17 @@ import java.util.Queue;
 //连接了蓝牙设备建立通信之后的数据交互线程类
 public class ConnectedThread extends Thread{
     Queue<Byte> queueBuffer = new LinkedList();
-    public static Queue<Sensor_data> data_sensor = new LinkedList();
-    byte[] packBuffer = new byte[1024];
+    public static ArrayList<Queue<Sensor_data>> data_sensor;
+    static {
+        // 初始化ArrayList，初始容量为3（这仅仅是内部数组的大小，并不是实际元素数量）
+        data_sensor = new ArrayList<>(9);
+
+        // 实际添加三个Queue到ArrayList中
+        for (int i = 0; i < 9; i++) {
+            data_sensor.add(new LinkedList<Sensor_data>());
+        }
+    }
+        byte[] packBuffer = new byte[1024];
     int k = 0;
     public static float data = 0;
     BluetoothSocket bluetoothSocket=null;
@@ -42,11 +51,10 @@ public class ConnectedThread extends Thread{
         outputStream=outputTemp;
     }
     public void process_packet() {
-//         Log.e("TAG", "INTO");
 //
         if (k <= 0) return;
         byte tmp = packBuffer[k - 1];
-//        Log.e("TAG", String.valueOf(tmp));
+//        Log.e("TAG", Arrays.toString(packBuffer));
 
         byte valid = 0;
         for (int i = 0; i < k - 1; i ++) {
@@ -54,27 +62,41 @@ public class ConnectedThread extends Thread{
 //            Log.e("TAG", "i  +" + i+ " " + String.valueOf(packBuffer[i]));
 
         }
-        Sensor_data sendor = new Sensor_data();
         if (valid == tmp) {
-            for (int i = 0; i < k - 1; i +=2) {
-                float num = (180.0F * ((short) packBuffer[i + 1] << 8 | 0xFF & (short) packBuffer[0]) / 32768.0F) ;
-                if ((i % 3) == 0) {
-                    sendor.x = num;
+            int state = 0;
+            float x =0, y= 0, z = 0;
+            for (int i = 0,j =0; i < k - 1; i +=2,j++) {
+                short t_high = (short) (packBuffer[i + 1] & 0xFF);
+                t_high = (short) (t_high << 8);
+                short t_short = (short) (packBuffer[i] & 0xFF);
+                int tt = t_high | t_short;
+                float num = (180.0F * tt) / 32768.0F;
+                if ((j % 3) == 0) {
+                    x = num;
                 }
-                else if ((i % 3) == 1) {
-                    sendor.y = num;
+                else if ((j % 3) == 1) {
+                    y = num;
                 }
                 else {
-                    sendor.z = num;
+
+                    z = num;
+                    Sensor_data sendor = new Sensor_data();
+                    sendor.x = x;
+                    sendor.y = y;
+                    sendor.z = z;
+                    if (data_sensor.get(state).size()>15) {
+                        data_sensor.get(state).poll();
+                    }
+                    data_sensor.get(state).add(sendor);
+                    state++;
                 }
+
 
 //                Log.e("TAG", "i  +" + i+ " " + String.valueOf(num));
                 data = num;
+
             }
-            if (data_sensor.size() > 15) {
-                data_sensor.poll();
-            }
-            data_sensor.add(sendor);
+            // 0 1 2 3 4 5 6 7 8 9
 
 
         }

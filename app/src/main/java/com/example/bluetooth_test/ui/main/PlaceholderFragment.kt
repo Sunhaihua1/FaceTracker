@@ -60,84 +60,87 @@ class PlaceholderFragment : Fragment() {
         Fragment_id = arguments?.getInt(ARG_SECTION_NUMBER);
     }
 
-    public fun setData(chart: LineChart) {
-        val values = ArrayList<Entry>();
-        val Data: Queue<Sensor_data> = LinkedList(ConnectedThread.data_sensor)
-        var idx = 0;
+    public fun setData() {
 
-        while (Data.size > 0){
-
-            Data.poll()
-                ?.let { Entry(idx ++.toFloat(), it.x
-                    /*, resources.getDrawable(R.drawable.star)*/) }
-                ?.let { values.add(it) }
-        }
-//        Log.e("TAG", "setData: " + Data.size,)
-//        Log.e("TAG", "setData: " + Data2.size,)
-
-        if (chart.data != null && chart.data.dataSetCount > 0) {
-            set1 = chart.data.getDataSetByIndex(0) as LineDataSet
-            set1!!.values = values
-            set1!!.notifyDataSetChanged()
-            chart.data.notifyDataChanged()
-            chart.notifyDataSetChanged()
-        } else {
-            // create a dataset and give it a type
-            set1 = LineDataSet(values, "x",)
-            set1!!.setDrawIcons(false)
-
-            // draw dashed line
-//            set1.enableDashedLine(10f, 5f, 0f)
-
-            // black lines and points
-            set1!!.color = Color.RED
-            set1!!.setCircleColor(Color.BLACK)
-
-            // line thickness and point size
-            set1!!.lineWidth = 1f
-            set1!!.circleRadius = 1f
-
-            // draw points as solid circles
-            set1!!.setDrawCircleHole(false)
-
-            // customize legend entry
-            set1!!.formLineWidth = 1f
-//            set1.formLineDashEffect = DashPathEffect(floatArrayOf(10f, 5f), 0f)
-            set1!!.formSize = 15f
-
-            // text size of values
-            set1!!.valueTextSize = 9f
-            set1!!.setValueFormatter(DefaultValueFormatter(2));//座標點數字的小數位數1位
-
-            // draw selection line as dashed
-            set1!!.enableDashedHighlightLine(10f, 5f, 0f)
-            // set the filled area
-//            set1.setDrawFilled(true)
-//            set1.fillFormatter = IFillFormatter { dataSet, dataProvider -> chart.axisLeft.axisMinimum }
-
-            // set color of filled area
-            /*if (Utils.getSDKInt() >= 18) {
-                // drawables only supported on api level 18 and above
-                val drawable = ContextCompat.getDrawable(this, R.drawable.fade_red)
-                set1.fillDrawable = drawable
-            } else {
-                set1.fillColor = Color.BLACK
-            }*/
-
+        for (i in 0 until arrList.size) {
+            val values = ArrayList<ArrayList<Entry>>(3).apply {
+                for (t in 1..3) {
+                    add(ArrayList<Entry>())
+                }
+            }
+            var chart = arrList[i]
+            val Data: Queue<Sensor_data> = LinkedList(ConnectedThread.data_sensor[arr_region[Fragment_id!!][i] - 1])
+            var idx = 0;
+            chart.clear()
+            while (Data.size > 0){
+                val tmp = Data.poll();
+                values[0].add(Entry(idx.toFloat(), tmp.x))
+                values[1].add(Entry(idx.toFloat(), tmp.y))
+                values[2].add(Entry(idx.toFloat(), tmp.z))
+                idx ++
+            }
             val dataSets = ArrayList<ILineDataSet>()
-            dataSets.add(set1!!) // add the data sets
 
-            // create a data object with the data sets
-            val data = LineData(dataSets)
-            chart.data = data
+            for (j in 0..2) {
+                var set1: LineDataSet?=null;
+                if (chart.data != null && chart.data.dataSetCount > j) {
+                    set1 = chart.data.getDataSetByIndex(j) as LineDataSet
+                    set1.values = values[j]
+                    set1.notifyDataSetChanged()
+                    chart.data.notifyDataChanged()
+                    chart.notifyDataSetChanged()
+                } else {
 
-            data.notifyDataChanged()
-            // set data
-            chart.notifyDataSetChanged()
+                    // create a dataset and give it a type
+                    set1 = LineDataSet(values[j], (('x'.toInt() + j).toChar()).toString(),)
+                    set1.setDrawIcons(false)
+                    // draw dashed line
+//            set1.enableDashedLine(10f, 5f, 0f)
+                    if (j == 0) {
+                        set1!!.color = Color.RED
+                    }
+                    else if (j == 1) {
+                        set1.color = Color.BLUE
+                    }
+                    else if (j == 2) {
+                        set1.color = Color.CYAN
+                    }
 
-            chart.invalidate()
+                    // black lines and points
+                    set1.setDrawValues(false)
+                    // line thickness and point size
+                    set1!!.lineWidth = 1f
+                    set1!!.circleRadius = 1f
 
+                    // draw points as solid circles
+                    set1!!.setDrawCircleHole(false)
+                    set1.setMode(LineDataSet.Mode.CUBIC_BEZIER);
+                    // customize legend entry
+                    set1!!.formLineWidth = 1f
+//            set1.formLineDashEffect = DashPathEffect(floatArrayOf(10f, 5f), 0f)
+                    set1!!.formSize = 15f
+                    // text size of values
+                    set1!!.valueTextSize = 9f
+                    set1!!.setValueFormatter(DefaultValueFormatter(2));//座標點數字的小數位數1位
+
+                    // draw selection line as dashed
+                    set1!!.enableDashedHighlightLine(10f, 5f, 0f)
+                    dataSets.add(set1!!) // add the data sets
+
+                }
+
+                // create a data object with the data sets
+                val data = LineData(dataSets)
+                chart.data = data
+                data.notifyDataChanged()
+                // set data
+                chart.notifyDataSetChanged()
+
+                chart.invalidate()
+
+            }
         }
+
     }
 
 
@@ -168,7 +171,7 @@ class PlaceholderFragment : Fragment() {
             var description = Description()
             description.text = "Sensor" + i.toString()
             mchart.description = description
-            mchart.isLogEnabled = true
+            mchart.isLogEnabled = false
         }
         for ((i, plotchart) in arrList.withIndex()) {
             plotchart.apply {
@@ -177,22 +180,22 @@ class PlaceholderFragment : Fragment() {
                 description.isEnabled = true;
                 xAxis.isEnabled = false;
                 xAxis.isEnabled = false;
-                axisLeft.isEnabled = false;
+                axisLeft.isEnabled = true;
                 axisRight.isEnabled =false;
             }
-            setData(plotchart);
         }
+        setData();
+
         Thread {
             while (true){
                 try{
-                    Thread.sleep(1000)
+                    Thread.sleep(80)
                     var message = Message()
                     message.obj = ConnectedThread.data;
                     messageHandler?.sendMessage(message);
 
                 } catch (t: Throwable) {
                     // 发生异常，通过handleCoroutineExceptionImpl方法处理
-                    break
                 }
             }
         }.start();
@@ -206,15 +209,7 @@ class PlaceholderFragment : Fragment() {
                 super.handleMessage(msg)
 
                 activity?.runOnUiThread {
-                    var data = arrList[0].data;
-                    var set = data.getDataSetByIndex(0)
-//                    set.clear()
-                    data.addEntry(Entry(set.entryCount.toFloat(),3.3f),0)
-                    Log.e("TAG", set.entryCount.toString())
-
-                    data.notifyDataChanged()
-                    arrList[0].notifyDataSetChanged()
-                    arrList[0].invalidate()
+                    setData()
 
                     binding.sectionLabel.setText(ConnectedThread.data.toString())
 

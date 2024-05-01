@@ -65,10 +65,9 @@ class AllFragment : Fragment() {
                 add(ArrayList<Entry>())
             }
         }
-        Log.e("TAG", "setData: " + values.size, )
-        val Data: Queue<Sensor_data> = LinkedList(ConnectedThread.data_sensor)
+//        Log.e("TAG", "setData: " + values.size, )
+        val Data: Queue<Sensor_data> = LinkedList(ConnectedThread.data_sensor[0])
         var idx = 0;
-        chart.clear()
         while (Data.size > 0){
             val tmp = Data.poll();
             values[0].add(Entry(idx.toFloat(), tmp.x))
@@ -168,7 +167,7 @@ class AllFragment : Fragment() {
             var description = Description()
             description.text = "Sensor" + i.toString()
             mchart.description = description
-            mchart.isLogEnabled = true
+            mchart.isLogEnabled = false
         }
         for ((i, plotchart) in arrList.withIndex()) {
             plotchart.apply {

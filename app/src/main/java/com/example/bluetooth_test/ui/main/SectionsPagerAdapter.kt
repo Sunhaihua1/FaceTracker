@@ -1,7 +1,9 @@
 package com.example.bluetooth_test.ui.main
 
 import android.content.Context
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.bluetooth_test.R
@@ -20,21 +22,26 @@ private val TAB_TITLES = arrayOf(
  */
 class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
     FragmentPagerAdapter(fm) {
+    val arr_fragment = arrayOf(PlaceholderFragment.newInstance(0),PlaceholderFragment.newInstance(1),PlaceholderFragment.newInstance(2),PlaceholderFragment.newInstance(3))
 
     override fun getItem(position: Int): Fragment {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment.
 //        return PlaceholderFragment.newInstance(position )
-        return AllFragment.newInstance(position )
+        return arr_fragment.get(position)
     }
 
     override fun getPageTitle(position: Int): CharSequence {
-        return "总传感器"
-//        return context.resources.getString(TAB_TITLES[position])
+//        return "总传感器"
+        return context.resources.getString(TAB_TITLES[position])
     }
 
     override fun getCount(): Int {
         // Show 2 total pages.
-        return 1
+        return 4
+    }
+
+    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+
     }
 }
