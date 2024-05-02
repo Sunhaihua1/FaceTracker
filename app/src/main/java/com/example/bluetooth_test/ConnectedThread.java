@@ -88,7 +88,10 @@ public class ConnectedThread extends Thread{
                         data_sensor.get(state).poll();
                     }
                     data_sensor.get(state).add(sendor);
+//                    Log.e("TAG", "process_packet: " + state);
                     state++;
+
+
                 }
 
 

@@ -22,13 +22,10 @@ private val TAB_TITLES = arrayOf(
  */
 class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
     FragmentPagerAdapter(fm) {
-    val arr_fragment = arrayOf(PlaceholderFragment.newInstance(0),PlaceholderFragment.newInstance(1),PlaceholderFragment.newInstance(2),PlaceholderFragment.newInstance(3))
-
     override fun getItem(position: Int): Fragment {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment.
-//        return PlaceholderFragment.newInstance(position )
-        return arr_fragment.get(position)
+        return PlaceholderFragment.newInstance(position)
     }
 
     override fun getPageTitle(position: Int): CharSequence {
@@ -41,7 +38,4 @@ class SectionsPagerAdapter(private val context: Context, fm: FragmentManager) :
         return 4
     }
 
-    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-
-    }
 }

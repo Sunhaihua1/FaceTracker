@@ -3,12 +3,18 @@ package com.example.bluetooth_test;
 import static com.example.bluetooth_test.ConnectThread.bluetoothSocket;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -40,6 +46,20 @@ public class BluetoothActivity extends AppCompatActivity {
     //自定义线程类的初始化
     static ConnectThread connectThread=null;
     static ConnectedThread connectedThread=null;
+    public void checkBlePermission() {
+        ArrayList<String> permissions = new ArrayList<String>();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            permissions.add(Manifest.permission.BLUETOOTH_SCAN);
+            permissions.add(Manifest.permission.BLUETOOTH_ADVERTISE);
+            permissions.add(Manifest.permission.BLUETOOTH_CONNECT);
+
+        }
+        else {
+            permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+            permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        }
+        ActivityCompat.requestPermissions(this,permissions.toArray(new String[0]),1);
+    }
 
     @SuppressLint("MissingPermission")
     @Override
@@ -53,6 +73,7 @@ public class BluetoothActivity extends AppCompatActivity {
         back=(Button) findViewById(R.id.back);
         btList=(ListView) findViewById(R.id.btList);
         next=(Button)findViewById(R.id.next);
+        checkBlePermission();
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
