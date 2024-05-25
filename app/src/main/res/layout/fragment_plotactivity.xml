@@ -13,6 +13,7 @@
         android:orientation="vertical"
         android:id="@+id/layoutLinear"
         >
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -22,6 +23,8 @@
                 android:id="@+id/switch1"
                 android:layout_width="54dp"
                 android:layout_height="40dp"
+                android:checked="true"
+                android:clickable="false"
                 android:typeface="normal" />
 
             <EditText
@@ -43,8 +46,8 @@
 
             <TextView
                 android:id="@+id/section_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="175dp"
+                android:layout_height="34dp"
                 tools:layout_constraintLeft_creator="1"
                 tools:layout_constraintTop_creator="1" />
         </LinearLayout>

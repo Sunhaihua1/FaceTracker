@@ -33,10 +33,13 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
-
         android:supportsRtl="true"
         android:theme="@style/Theme.Bluetooth_Test"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.main.SettingsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_settings" />
         <activity
             android:name=".Plotactivity"
             android:exported="false"
@@ -44,9 +47,7 @@
             android:theme="@style/Theme.Bluetooth_Test.NoActionBar" />
         <activity
             android:name=".BluetoothActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">

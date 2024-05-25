@@ -1,0 +1,266 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="Sensor1">
+
+        <EditTextPreference
+            app:key="Sensor1_0"
+            app:title="正常≤"
+            app:defaultValue="@string/sensor_threshold0"
+            app:useSimpleSummaryProvider="true"
+            />
+        <EditTextPreference
+            app:key="Sensor1_1"
+            app:title="轻度≤"
+            app:defaultValue="@string/sensor_threshold1"
+            app:useSimpleSummaryProvider="true"
+            />
+
+        <EditTextPreference
+            app:key="Sensor1_2"
+            app:title="中度≤"
+            app:defaultValue="@string/sensor_threshold2"
+            app:useSimpleSummaryProvider="true"
+            />
+        <EditTextPreference
+            app:key="Sensor1_3"
+            app:title="重度≤"
+            app:defaultValue="@string/sensor_threshold3"
+            app:useSimpleSummaryProvider="true"
+            />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Sensor2">
+
+        <EditTextPreference
+            app:key="Sensor2_0"
+            app:title="正常≤"
+            app:defaultValue="@string/sensor_threshold0"
+            app:useSimpleSummaryProvider="true"
+            />
+        <EditTextPreference
+            app:key="Sensor2_1"
+            app:title="轻度≤"
+            app:defaultValue="@string/sensor_threshold1"
+            app:useSimpleSummaryProvider="true"
+            />
+
+        <EditTextPreference
+            app:key="Sensor2_2"
+            app:title="中度≤"
+            app:defaultValue="@string/sensor_threshold2"
+            app:useSimpleSummaryProvider="true"
+            />
+        <EditTextPreference
+            app:key="Sensor2_3"
+            app:title="重度≤"
+            app:defaultValue="@string/sensor_threshold3"
+            app:useSimpleSummaryProvider="true"
+            />
+
+    </PreferenceCategory>
+    <PreferenceCategory app:title="Sensor3">
+
+        <EditTextPreference
+            app:key="Sensor3_0"
+            app:title="正常≤"
+            app:defaultValue="@string/sensor_threshold0"
+            app:useSimpleSummaryProvider="true"
+            />
+        <EditTextPreference
+            app:key="Sensor3_1"
+            app:title="轻度≤"
+            app:defaultValue="@string/sensor_threshold1"
+            app:useSimpleSummaryProvider="true"
+            />
+
+        <EditTextPreference
+            app:key="Sensor3_2"
+            app:title="中度≤"
+            app:defaultValue="@string/sensor_threshold2"
+            app:useSimpleSummaryProvider="true"
+            />
+        <EditTextPreference
+            app:key="Sensor3_3"
+            app:title="重度≤"
+            app:defaultValue="@string/sensor_threshold3"
+            app:useSimpleSummaryProvider="true"
+            />
+
+    </PreferenceCategory>
+    <PreferenceCategory app:title="Sensor4">
+
+        <EditTextPreference
+            app:key="Sensor4_0"
+            app:title="正常≤"
+            app:defaultValue="@string/sensor_threshold0"
+            app:useSimpleSummaryProvider="true"
+            />
+        <EditTextPreference
+            app:key="Sensor4_1"
+            app:title="轻度≤"
+            app:defaultValue="@string/sensor_threshold1"
+            app:useSimpleSummaryProvider="true"
+            />
+
+        <EditTextPreference
+            app:key="Sensor4_2"
+            app:title="中度≤"
+            app:defaultValue="@string/sensor_threshold2"
+            app:useSimpleSummaryProvider="true"
+            />
+        <EditTextPreference
+            app:key="Sensor4_3"
+            app:title="重度≤"
+            app:defaultValue="@string/sensor_threshold3"
+            app:useSimpleSummaryProvider="true"
+            />
+
+    </PreferenceCategory>
+    <PreferenceCategory app:title="Sensor5">
+
+        <EditTextPreference
+            app:key="Sensor5_0"
+            app:title="正常≤"
+            app:defaultValue="@string/sensor_threshold0"
+            app:useSimpleSummaryProvider="true"
+            />
+        <EditTextPreference
+            app:key="Sensor5_1"
+            app:title="轻度≤"
+            app:defaultValue="@string/sensor_threshold1"
+            app:useSimpleSummaryProvider="true"
+            />
+
+        <EditTextPreference
+            app:key="Sensor5_2"
+            app:title="中度≤"
+            app:defaultValue="@string/sensor_threshold2"
+            app:useSimpleSummaryProvider="true"
+            />
+        <EditTextPreference
+            app:key="Sensor5_3"
+            app:title="重度≤"
+            app:defaultValue="@string/sensor_threshold3"
+            app:useSimpleSummaryProvider="true"
+            />
+
+    </PreferenceCategory>
+    <PreferenceCategory app:title="Sensor6">
+
+        <EditTextPreference
+            app:key="Sensor6_0"
+            app:title="正常≤"
+            app:defaultValue="@string/sensor_threshold0"
+            app:useSimpleSummaryProvider="true"
+            />
+        <EditTextPreference
+            app:key="Sensor6_1"
+            app:title="轻度≤"
+            app:defaultValue="@string/sensor_threshold1"
+            app:useSimpleSummaryProvider="true"
+            />
+
+        <EditTextPreference
+            app:key="Sensor6_2"
+            app:title="中度≤"
+            app:defaultValue="@string/sensor_threshold2"
+            app:useSimpleSummaryProvider="true"
+            />
+        <EditTextPreference
+            app:key="Sensor6_3"
+            app:title="重度≤"
+            app:defaultValue="@string/sensor_threshold3"
+            app:useSimpleSummaryProvider="true"
+            />
+
+    </PreferenceCategory>
+    <PreferenceCategory app:title="Sensor7">
+
+        <EditTextPreference
+            app:key="Sensor7_0"
+            app:title="正常≤"
+            app:defaultValue="@string/sensor_threshold0"
+            app:useSimpleSummaryProvider="true"
+            />
+        <EditTextPreference
+            app:key="Sensor7_1"
+            app:title="轻度≤"
+            app:defaultValue="@string/sensor_threshold1"
+            app:useSimpleSummaryProvider="true"
+            />
+
+        <EditTextPreference
+            app:key="Sensor7_2"
+            app:title="中度≤"
+            app:defaultValue="@string/sensor_threshold2"
+            app:useSimpleSummaryProvider="true"
+            />
+        <EditTextPreference
+            app:key="Sensor7_3"
+            app:title="重度≤"
+            app:defaultValue="@string/sensor_threshold3"
+            app:useSimpleSummaryProvider="true"
+            />
+
+    </PreferenceCategory>
+    <PreferenceCategory app:title="Sensor8">
+
+        <EditTextPreference
+            app:key="Sensor8_0"
+            app:title="正常≤"
+            app:defaultValue="@string/sensor_threshold0"
+            app:useSimpleSummaryProvider="true"
+            />
+        <EditTextPreference
+            app:key="Sensor8_1"
+            app:title="轻度≤"
+            app:defaultValue="@string/sensor_threshold1"
+            app:useSimpleSummaryProvider="true"
+            />
+
+        <EditTextPreference
+            app:key="Sensor8_2"
+            app:title="中度≤"
+            app:defaultValue="@string/sensor_threshold2"
+            app:useSimpleSummaryProvider="true"
+            />
+        <EditTextPreference
+            app:key="Sensor8_3"
+            app:title="重度≤"
+            app:defaultValue="@string/sensor_threshold3"
+            app:useSimpleSummaryProvider="true"
+            />
+
+    </PreferenceCategory>
+    <PreferenceCategory app:title="Sensor9">
+
+        <EditTextPreference
+            app:key="Sensor9_0"
+            app:title="正常≤"
+            app:defaultValue="@string/sensor_threshold0"
+            app:useSimpleSummaryProvider="true"
+            />
+        <EditTextPreference
+            app:key="Sensor9_1"
+            app:title="轻度≤"
+            app:defaultValue="@string/sensor_threshold1"
+            app:useSimpleSummaryProvider="true"
+            />
+
+        <EditTextPreference
+            app:key="Sensor9_2"
+            app:title="中度≤"
+            app:defaultValue="@string/sensor_threshold2"
+            app:useSimpleSummaryProvider="true"
+            />
+        <EditTextPreference
+            app:key="Sensor9_3"
+            app:title="重度≤"
+            app:defaultValue="@string/sensor_threshold3"
+            app:useSimpleSummaryProvider="true"
+            />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

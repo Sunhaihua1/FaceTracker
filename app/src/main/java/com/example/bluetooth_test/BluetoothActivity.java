@@ -10,6 +10,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -74,12 +75,13 @@ public class BluetoothActivity extends AppCompatActivity {
         btList=(ListView) findViewById(R.id.btList);
         next=(Button)findViewById(R.id.next);
         checkBlePermission();
+        Context context = this;
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //在返回主界面的操作中开启发送数据的线程
                 if(bluetoothSocket!=null&&bluetoothSocket.isConnected()){//先判断连接上了
-                    connectedThread=new ConnectedThread(bluetoothSocket);
+                    connectedThread=new ConnectedThread(bluetoothSocket, context);
                     connectedThread.start();
                     Toast.makeText(BluetoothActivity.this,"已开启数据线程",Toast.LENGTH_SHORT).show();
                 }
@@ -95,7 +97,7 @@ public class BluetoothActivity extends AppCompatActivity {
                 }
                 else {
                     if(bluetoothSocket!=null&&bluetoothSocket.isConnected()){//先判断连接上了
-                        connectedThread=new ConnectedThread(bluetoothSocket);
+                        connectedThread=new ConnectedThread(bluetoothSocket,context);
                         connectedThread.start();
                         Toast.makeText(BluetoothActivity.this,"已开启数据线程",Toast.LENGTH_SHORT).show();
                     }

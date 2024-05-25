@@ -6,4 +6,9 @@ public class Sensor_data {
     public float z;
 
 
+    public Sensor_data(float x, float y, float z) {
+        this.x=x;
+        this.y=y;
+        this.z=z;
+    }
 }

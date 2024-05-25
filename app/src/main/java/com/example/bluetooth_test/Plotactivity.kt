@@ -1,15 +1,17 @@
 package com.example.bluetooth_test
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.tabs.TabLayout
-import androidx.viewpager.widget.ViewPager
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
-import com.example.bluetooth_test.ui.main.SectionsPagerAdapter
+import androidx.preference.PreferenceManager
+import androidx.viewpager.widget.ViewPager
 import com.example.bluetooth_test.databinding.ActivityPlotactivityBinding
+import com.example.bluetooth_test.ui.main.SectionsPagerAdapter
+import com.example.bluetooth_test.ui.main.SettingsActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.tabs.TabLayout
 
 class Plotactivity : AppCompatActivity() {
 
@@ -24,6 +26,18 @@ class Plotactivity : AppCompatActivity() {
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = binding.tabs
         tabs.setupWithViewPager(viewPager);
+        val floatBtn: FloatingActionButton = binding.floatingActionButton
+        floatBtn.setOnClickListener {
+            intent = Intent(this, SettingsActivity::class.java)
+//            intent= Intent(this@MainActivity,SettingsActivity::class.java)
+            startActivity(intent)
+        }
+//        val sharedPreferences: SharedPreferences =
+//            PreferenceManager.getDefaultSharedPreferences(this)
+//        val myString = sharedPreferences.getString("Sensor8_0", "001")
+//        if (myString != null) {
+//            Log.e("TAG111", myString)
+//        }
 
     }
 }

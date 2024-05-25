@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.example.bluetooth_test.ui.main.SettingsActivity
 
 
 // Permission code from:
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         val connectButton: Button = findViewById(R.id.btnConnect)
         connectButton.setOnClickListener {
             intent = Intent(this@MainActivity, BluetoothActivity::class.java)
+//            intent= Intent(this@MainActivity,SettingsActivity::class.java)
             startActivity(intent)
         }
 

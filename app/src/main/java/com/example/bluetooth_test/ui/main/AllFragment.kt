@@ -186,7 +186,7 @@ class AllFragment : Fragment() {
                 try{
                     Thread.sleep(50)
                     var message = Message()
-                    message.obj = ConnectedThread.data;
+//                    message.obj = ConnectedThread.data;
                     messageHandler?.sendMessage(message);
 
                 } catch (t: Throwable) {
@@ -209,7 +209,7 @@ class AllFragment : Fragment() {
                         setData(arrList[i])
 
                     }
-                    binding.sectionLabel.setText(ConnectedThread.data.toString())
+//                    binding.sectionLabel.setText(ConnectedThread.data.toString())
 
                 }
             } catch (t: Throwable) {

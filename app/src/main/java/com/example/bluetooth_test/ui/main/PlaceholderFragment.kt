@@ -28,6 +28,7 @@ import java.util.LinkedList
 import java.util.Queue
 import java.util.Timer
 import java.util.TimerTask
+import kotlin.math.max
 
 
 /**
@@ -35,12 +36,10 @@ import java.util.TimerTask
  */
 class PlaceholderFragment : Fragment() {
     val arr_region = arrayOf(arrayOf(1, 2, 3, 4, 5),arrayOf(4, 5, 6, 7), arrayOf(8, 9),arrayOf(6, 7))
-
+    val state: Array<String> = arrayOf("正常","轻度","中度","重度")
     private lateinit var pageViewModel: PageViewModel
     private var _binding: FragmentPlotactivityBinding? = null
     private var Fragment_id: Int? = null;
-    var set1: LineDataSet?=null;
-    var thread:Thread?=null;
     val arrList : MutableList<LineChart> = mutableListOf<LineChart>()
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -73,12 +72,16 @@ class PlaceholderFragment : Fragment() {
                 //创建定时触发后要执行的逻辑任务
                 override fun run() {
                     val message = Message()
-                    message.obj = ConnectedThread.data;
+                    var status = 0;
+                    for (idx in arr_region[Fragment_id!!]) {
+                        status = max(status,ConnectedThread.cur_state[idx - 1])
+                    }
+                    message.obj = status;
                     messageHandler?.sendMessage(message);
-                    System.gc()
+//                    System.gc()
                 }
             }
-            timer!!.schedule(timerTask,0, 300)
+            timer!!.schedule(timerTask,0, 150)
 
         }
         else timerTask?.cancel();
@@ -124,10 +127,15 @@ class PlaceholderFragment : Fragment() {
         timerTask = object : TimerTask() {
             //创建定时触发后要执行的逻辑任务
             override fun run() {
+
                 val message = Message()
-                message.obj = ConnectedThread.data;
+                var status = 0;
+                for (idx in arr_region[Fragment_id!!]) {
+                    status = max(status,ConnectedThread.cur_state[idx - 1])
+                }
+                message.obj = status;
                 messageHandler?.sendMessage(message);
-                System.gc()
+//                System.gc()
             }
         }
         timer!!.schedule(timerTask,0, 150)
@@ -138,14 +146,10 @@ class PlaceholderFragment : Fragment() {
     inner class MessageHandler: Handler(){
         override fun handleMessage(msg: Message) {
             try{
-
                 super.handleMessage(msg)
-
                 activity?.runOnUiThread {
                     setData()
-
-                    binding.sectionLabel.setText(ConnectedThread.data.toString())
-
+                    binding.sectionLabel.text = state[msg.obj as Int]
                 }
             } catch (t: Throwable) {
                 return
@@ -225,7 +229,7 @@ class PlaceholderFragment : Fragment() {
                 // create a data object with the data sets
                 val data = LineData(dataSets)
                 chart.data = data
-                data.notifyDataChanged()
+                chart.data.notifyDataChanged()
                 // set data
                 chart.notifyDataSetChanged()
 
