@@ -4,7 +4,6 @@ import static com.example.bluetooth_test.ConnectThread.bluetoothSocket;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -12,10 +11,8 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,9 +20,9 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.bluetooth_test.ConnectThread;
-import com.example.bluetooth_test.ConnectedThread;
+import com.example.bluetooth_test.ui.plot.Plotactivity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -79,14 +76,13 @@ public class BluetoothActivity extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //在返回主界面的操作中开启发送数据的线程
-                if(bluetoothSocket!=null&&bluetoothSocket.isConnected()){//先判断连接上了
-                    connectedThread=new ConnectedThread(bluetoothSocket, context);
-                    connectedThread.start();
-                    Toast.makeText(BluetoothActivity.this,"已开启数据线程",Toast.LENGTH_SHORT).show();
+                try {
+                    bluetoothSocket.close();
+                    finish();
+                } catch (IOException e) {
+                    // 处理关闭过程中发生的异常
+                    bluetoothSocket=null;
                 }
-                intent=new Intent(BluetoothActivity.this,MainActivity.class);
-                startActivity(intent);
             }
         });
         next.setOnClickListener(new View.OnClickListener() {
@@ -102,7 +98,7 @@ public class BluetoothActivity extends AppCompatActivity {
                         Toast.makeText(BluetoothActivity.this,"已开启数据线程",Toast.LENGTH_SHORT).show();
                     }
 
-                    intent=new Intent(BluetoothActivity.this,Plotactivity.class);
+                    intent=new Intent(BluetoothActivity.this, Plotactivity.class);
                     startActivity(intent);
 
                 }
@@ -121,6 +117,7 @@ public class BluetoothActivity extends AppCompatActivity {
         Set<BluetoothDevice> pairedDevices=bluetoothAdapter.getBondedDevices();
         readyDevices=new ArrayList();
         if(pairedDevices!=null&&pairedDevices.size()>0){
+            next.setText("(未连接)查看状态");
             for(BluetoothDevice device:pairedDevices){
                 readyDevices.add(device);
                 devicesNames.add(device.getName());
@@ -143,12 +140,13 @@ public class BluetoothActivity extends AppCompatActivity {
                 if(connectThread!=null){//如果不为空，就断开这个连接
                     connectThread.cancel();
                     connectThread=null;
+                    next.setText("(未连接)查看状态");
                 }
                 //开始连接新的设备对象
                 connectThread=new ConnectThread(readyDevices.get(position));
                 connectThread.start();//start（）函数开启线程，执行操作
-                    Toast.makeText(BluetoothActivity.this, "已连接"+readyDevices.get(position).getName(), Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(BluetoothActivity.this, "正在连接"+readyDevices.get(position).getName(), Toast.LENGTH_SHORT).show();
+                next.setText("查看面部状态");
             }
         });
 

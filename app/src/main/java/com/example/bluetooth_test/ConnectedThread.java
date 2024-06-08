@@ -144,7 +144,12 @@ public class ConnectedThread extends Thread{
         String Sensor_title= "Sensor"+(state+1) + "_";
 
         for (int i = 0; i < 4; i ++) {
-            float threshold = Float.parseFloat(sharedPreferences.getString(Sensor_title+i, "001"));
+            String tmp = sharedPreferences.getString(Sensor_title+i, "001");
+            float threshold;
+            if (tmp.equals("MAX")) {
+                threshold = 2e9F;
+            }
+            else threshold = Float.parseFloat(tmp);
             Log.e("TAG111", String.valueOf(threshold));
             if (maxVariance <= threshold) {
                 sensor_state_cnt[state][i] ++;

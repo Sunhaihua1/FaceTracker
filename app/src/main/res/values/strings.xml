@@ -161,7 +161,7 @@
     <string name="sensor_threshold0">10</string>
     <string name="sensor_threshold1">20</string>
     <string name="sensor_threshold2">30</string>
-    <string name="sensor_threshold3">2e9</string>
+    <string name="sensor_threshold3">MAX</string>
 
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
 </resources>

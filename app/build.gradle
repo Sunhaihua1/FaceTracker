@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace 'com.example.bluetooth_test'
-    compileSdk 33
+    compileSdk 34
     viewBinding {
         enabled = true
     }
@@ -61,6 +61,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'androidx.preference:preference:1.2.0'
+    implementation 'androidx.activity:activity:1.8.0'
+    implementation 'com.google.firebase:firebase-firestore-ktx:25.0.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

@@ -1,4 +1,4 @@
-package com.example.bluetooth_test.ui.main
+package com.example.bluetooth_test.ui.plot
 
 import android.graphics.Color
 import android.os.Bundle
@@ -11,9 +11,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout.LayoutParams
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.bluetooth_test.ConnectedThread
 import com.example.bluetooth_test.Sensor_data
 import com.example.bluetooth_test.databinding.FragmentPlotactivityBinding
@@ -35,9 +33,9 @@ import kotlin.math.max
  * A placeholder fragment containing a simple view.
  */
 class PlaceholderFragment : Fragment() {
-    val arr_region = arrayOf(arrayOf(1, 2, 3, 4, 5),arrayOf(4, 5, 6, 7), arrayOf(8, 9),arrayOf(6, 7))
+    val arr_region = arrayOf(arrayOf(1, 2, 3, 4),arrayOf(3,4, 5, 6), arrayOf(7,8),arrayOf(5,6))
     val state: Array<String> = arrayOf("正常","轻度","中度","重度")
-    private lateinit var pageViewModel: PageViewModel
+    val myArray = arrayOf("眉毛左Sensor", "眉毛右Sensor", "脸颊左Sensor","脸颊右Sensor","嘴唇左Sensor","嘴唇右Sensor","下颚左Sensor","下颚右Sensor")
     private var _binding: FragmentPlotactivityBinding? = null
     private var Fragment_id: Int? = null;
     val arrList : MutableList<LineChart> = mutableListOf<LineChart>()
@@ -50,10 +48,6 @@ class PlaceholderFragment : Fragment() {
     var timerTask: TimerTask?=null;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pageViewModel = ViewModelProvider(this).get(PageViewModel::class.java).apply {
-            setIndex(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1)
-
-        }
         messageHandler = MessageHandler();
         Fragment_id = arguments?.getInt(ARG_SECTION_NUMBER);
 
@@ -108,7 +102,7 @@ class PlaceholderFragment : Fragment() {
                 layoutParams.width = LayoutParams.MATCH_PARENT;
                 arrList.add(mchart)
                 var description = Description()
-                description.text = "Sensor" + i.toString()
+                description.text = myArray[i-1] + i.toString()
                 mchart.description = description
                 mchart.isLogEnabled = false
             }
@@ -149,7 +143,12 @@ class PlaceholderFragment : Fragment() {
                 super.handleMessage(msg)
                 activity?.runOnUiThread {
                     setData()
-                    binding.sectionLabel.text = state[msg.obj as Int]
+                    if(binding.switch1.isChecked) {
+                        binding.sectionLabel.text = state[msg.obj as Int]
+                    }
+                    else {
+                        binding.sectionLabel.text = "请开启评分"
+                    }
                 }
             } catch (t: Throwable) {
                 return

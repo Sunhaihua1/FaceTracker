@@ -1,4 +1,4 @@
-package com.example.bluetooth_test.ui.main
+package com.example.bluetooth_test
 
 import android.os.Bundle
 import android.text.InputType
@@ -6,7 +6,6 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.EditTextPreference
 import androidx.preference.PreferenceFragmentCompat
-import com.example.bluetooth_test.R
 
 
 class SettingsActivity : AppCompatActivity() {
@@ -37,7 +36,7 @@ class SettingsActivity : AppCompatActivity() {
     class SettingsFragment : PreferenceFragmentCompat() {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
-            for(i in 1..9) {
+            for(i in 1..8) {
                 for (j in 0..2) {
                     val rssiPreference = findPreference<EditTextPreference>("Sensor" + i + "_" + j)
                     rssiPreference?.setOnBindEditTextListener {
@@ -47,8 +46,6 @@ class SettingsActivity : AppCompatActivity() {
                 }
                 val rssiPreference = findPreference<EditTextPreference>("Sensor" + i + "_" + 3)
                 rssiPreference?.isEnabled = false
-
-
             }
 
         }

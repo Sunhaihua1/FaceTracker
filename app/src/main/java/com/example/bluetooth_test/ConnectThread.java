@@ -36,6 +36,7 @@ public class ConnectThread extends Thread{
         if(bluetoothSocket!=null){
             try {
                 bluetoothSocket.close();
+
             } catch (IOException e) {}
             bluetoothSocket=null;
         }

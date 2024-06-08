@@ -1,6 +1,6 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="Sensor1">
+    <PreferenceCategory app:title="眉毛左Sensor1">
 
         <EditTextPreference
             app:key="Sensor1_0"
@@ -30,7 +30,7 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="Sensor2">
+    <PreferenceCategory app:title="眉毛右Sensor2">
 
         <EditTextPreference
             app:key="Sensor2_0"
@@ -59,7 +59,7 @@
             />
 
     </PreferenceCategory>
-    <PreferenceCategory app:title="Sensor3">
+    <PreferenceCategory app:title="脸颊左Sensor3">
 
         <EditTextPreference
             app:key="Sensor3_0"
@@ -88,7 +88,7 @@
             />
 
     </PreferenceCategory>
-    <PreferenceCategory app:title="Sensor4">
+    <PreferenceCategory app:title="脸颊右Sensor4">
 
         <EditTextPreference
             app:key="Sensor4_0"
@@ -117,7 +117,7 @@
             />
 
     </PreferenceCategory>
-    <PreferenceCategory app:title="Sensor5">
+    <PreferenceCategory app:title="嘴唇左Sensor5">
 
         <EditTextPreference
             app:key="Sensor5_0"
@@ -146,7 +146,7 @@
             />
 
     </PreferenceCategory>
-    <PreferenceCategory app:title="Sensor6">
+    <PreferenceCategory app:title="嘴唇右Sensor6">
 
         <EditTextPreference
             app:key="Sensor6_0"
@@ -175,7 +175,7 @@
             />
 
     </PreferenceCategory>
-    <PreferenceCategory app:title="Sensor7">
+    <PreferenceCategory app:title="下颚左Sensor7">
 
         <EditTextPreference
             app:key="Sensor7_0"
@@ -204,7 +204,7 @@
             />
 
     </PreferenceCategory>
-    <PreferenceCategory app:title="Sensor8">
+    <PreferenceCategory app:title="下颚右Sensor8">
 
         <EditTextPreference
             app:key="Sensor8_0"
@@ -227,35 +227,6 @@
             />
         <EditTextPreference
             app:key="Sensor8_3"
-            app:title="重度≤"
-            app:defaultValue="@string/sensor_threshold3"
-            app:useSimpleSummaryProvider="true"
-            />
-
-    </PreferenceCategory>
-    <PreferenceCategory app:title="Sensor9">
-
-        <EditTextPreference
-            app:key="Sensor9_0"
-            app:title="正常≤"
-            app:defaultValue="@string/sensor_threshold0"
-            app:useSimpleSummaryProvider="true"
-            />
-        <EditTextPreference
-            app:key="Sensor9_1"
-            app:title="轻度≤"
-            app:defaultValue="@string/sensor_threshold1"
-            app:useSimpleSummaryProvider="true"
-            />
-
-        <EditTextPreference
-            app:key="Sensor9_2"
-            app:title="中度≤"
-            app:defaultValue="@string/sensor_threshold2"
-            app:useSimpleSummaryProvider="true"
-            />
-        <EditTextPreference
-            app:key="Sensor9_3"
             app:title="重度≤"
             app:defaultValue="@string/sensor_threshold3"
             app:useSimpleSummaryProvider="true"

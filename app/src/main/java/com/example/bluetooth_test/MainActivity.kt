@@ -6,10 +6,8 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.example.bluetooth_test.ui.main.SettingsActivity
 
 
 // Permission code from:
