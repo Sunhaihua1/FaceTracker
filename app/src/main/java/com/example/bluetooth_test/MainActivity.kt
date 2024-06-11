@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         Log.d(_tag, "Starting...")
         if (getSupportActionBar() != null){
-            getSupportActionBar()?.hide();
+            getSupportActionBar()?.hide()
         }
 
         setContentView(binding.root)
