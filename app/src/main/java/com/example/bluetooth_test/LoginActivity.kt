@@ -1,11 +1,14 @@
 package com.example.bluetooth_test
 
+import android.Manifest
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 
 
 class LoginActivity : AppCompatActivity() {
@@ -17,8 +20,9 @@ class LoginActivity : AppCompatActivity() {
     private var mySQLiteOpenHelper: MySQLiteOpenHelper? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        mySQLiteOpenHelper = MySQLiteOpenHelper(this)
-
+        mySQLiteOpenHelper =
+            MySQLiteOpenHelper(this)
+        checkBlePermission()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         if (getSupportActionBar() != null){
@@ -38,7 +42,21 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
+    fun checkBlePermission() {
+        val permissions = ArrayList<String>()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            permissions.add(Manifest.permission.BLUETOOTH_SCAN)
+            permissions.add(Manifest.permission.BLUETOOTH_ADVERTISE)
+            permissions.add(Manifest.permission.BLUETOOTH_CONNECT)
+        } else {
+            permissions.add(Manifest.permission.ACCESS_FINE_LOCATION)
+            permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION)
+        }
+        permissions.add(Manifest.permission.CAMERA)
+        permissions.add(Manifest.permission.CAMERA)
+        permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        ActivityCompat.requestPermissions(this, permissions.toTypedArray<String>(), 1)
+    }
     fun login() {
         val n = username.text.toString()
         val p = password.text.toString()

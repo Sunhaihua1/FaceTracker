@@ -5,6 +5,7 @@ import static java.util.Collections.max;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.util.Log;
 
 import androidx.preference.PreferenceManager;
@@ -19,6 +20,7 @@ import java.util.Queue;
 //连接了蓝牙设备建立通信之后的数据交互线程类
 public class ConnectedThread extends Thread{
     Queue<Byte> queueBuffer = new LinkedList<>();
+    private MySQLiteOpenHelper mySQLiteOpenHelper;
     public static ArrayList<Queue<Sensor_data>> data_sensor;
     static {
         // 初始化ArrayList，初始容量为3（这仅仅是内部数组的大小，并不是实际元素数量）
@@ -56,6 +58,8 @@ public class ConnectedThread extends Thread{
         inputStream=inputTemp;
         outputStream=outputTemp;
         this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        mySQLiteOpenHelper = new MySQLiteOpenHelper(context);
+
 
     }
     public void process_packet() {
@@ -68,7 +72,6 @@ public class ConnectedThread extends Thread{
         for (int i = 0; i < k - 1; i ++) {
             valid += packBuffer[i];
 //            Log.e("TAG", "i  +" + i+ " " + String.valueOf(packBuffer[i]));
-
         }
         if (valid == tmp) {
             int state = 0;
@@ -86,14 +89,16 @@ public class ConnectedThread extends Thread{
                     y = num;
                 }
                 else {
-
                     z = num;
-                    Sensor_data sendor = new Sensor_data(x,y,z);
+                    Sensor_data sensor = new Sensor_data(state,x,y,z);
                     if (data_sensor.get(state).size()>15) {
                         data_sensor.get(state).poll();
                     }
-                    data_sensor.get(state).add(sendor);
-                    sensor_var[state][var_idx[state]] = sendor;
+                    data_sensor.get(state).add(sensor);
+                    long sensorDataId = mySQLiteOpenHelper.insertSensorData(sensor);
+                    Log.i("ConnectedThread", "Sensor data inserted with ID: " + sensorDataId);
+
+                    sensor_var[state][var_idx[state]] = sensor;
                     var_idx[state] ++;
                     if (var_idx[state] >= 10) {
                         get_var_flag[state] = true;
@@ -102,15 +107,34 @@ public class ConnectedThread extends Thread{
                     if (get_var_flag[state]) {
                         get_var(state);
                     }
-//                    Log.e("TAG", "process_packet: " + state);
                     state++;
+//                    Cursor cursor = mySQLiteOpenHelper.getAllSensorData();
+//                    if (cursor != null) {
+//                        while (cursor.moveToNext()) {
+//                            int idIndex = cursor.getColumnIndex("id");
+//                            int usernameIndex = cursor.getColumnIndex("username");
+//                            int sensorIdIndex = cursor.getColumnIndex("sensor_id");
+//                            int xIndex = cursor.getColumnIndex("x");
+//                            int yIndex = cursor.getColumnIndex("y");
+//                            int zIndex = cursor.getColumnIndex("z");
+//
+//                            int id = cursor.getInt(idIndex);
+//                            String username = cursor.getString(usernameIndex);
+//                            int sensorId = cursor.getInt(sensorIdIndex);
+//                            float a = cursor.getFloat(xIndex);
+//                            float b = cursor.getFloat(yIndex);
+//                            float c = cursor.getFloat(zIndex);
+//
+//                            Log.i("MainActivity", "Sensor Data: ID=" + id + ", Username=" + username +
+//                                    ", SensorID=" + sensorId + ", X=" + a + ", Y=" + b + ", Z=" + c);
+//                        }
+//                        cursor.close();
+//                    }
                 }
 //                Log.e("TAG", "i  +" + i+ " " + String.valueOf(num));
 
             }
             // 0 1 2 3 4 5 6 7 8 9
-
-
         }
 
 
@@ -164,8 +188,6 @@ public class ConnectedThread extends Thread{
 
 
     }
-
-
 
     private float calculateMean(float[] values) {
         float sum = 0;

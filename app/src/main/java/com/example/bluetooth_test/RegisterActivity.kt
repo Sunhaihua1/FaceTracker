@@ -7,13 +7,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.bluetooth_test.LoginActivity
-import com.example.bluetooth_test.MySQLiteOpenHelper
-import com.google.firebase.firestore.auth.User
 
 class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        mySQLiteOpenHelper = MySQLiteOpenHelper(this)
+        mySQLiteOpenHelper =
+            MySQLiteOpenHelper(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
         username = findViewById<EditText>(R.id.rusername)

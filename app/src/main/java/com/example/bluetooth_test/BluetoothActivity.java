@@ -44,20 +44,7 @@ public class BluetoothActivity extends AppCompatActivity {
     //自定义线程类的初始化
     static ConnectThread connectThread=null;
     static ConnectedThread connectedThread=null;
-    public void checkBlePermission() {
-        ArrayList<String> permissions = new ArrayList<String>();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            permissions.add(Manifest.permission.BLUETOOTH_SCAN);
-            permissions.add(Manifest.permission.BLUETOOTH_ADVERTISE);
-            permissions.add(Manifest.permission.BLUETOOTH_CONNECT);
 
-        }
-        else {
-            permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
-            permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
-        }
-        ActivityCompat.requestPermissions(this,permissions.toArray(new String[0]),1);
-    }
 
     @SuppressLint("MissingPermission")
     @Override
@@ -71,7 +58,6 @@ public class BluetoothActivity extends AppCompatActivity {
         back=(Button) findViewById(R.id.back);
         btList=(ListView) findViewById(R.id.btList);
         next=(Button)findViewById(R.id.next);
-        checkBlePermission();
         Context context = this;
         back.setOnClickListener(new View.OnClickListener() {
             @Override
