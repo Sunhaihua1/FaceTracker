@@ -108,30 +108,7 @@ public class ConnectedThread extends Thread{
                         get_var(state);
                     }
                     state++;
-//                    Cursor cursor = mySQLiteOpenHelper.getAllSensorData();
-//                    if (cursor != null) {
-//                        while (cursor.moveToNext()) {
-//                            int idIndex = cursor.getColumnIndex("id");
-//                            int usernameIndex = cursor.getColumnIndex("username");
-//                            int sensorIdIndex = cursor.getColumnIndex("sensor_id");
-//                            int xIndex = cursor.getColumnIndex("x");
-//                            int yIndex = cursor.getColumnIndex("y");
-//                            int zIndex = cursor.getColumnIndex("z");
-//
-//                            int id = cursor.getInt(idIndex);
-//                            String username = cursor.getString(usernameIndex);
-//                            int sensorId = cursor.getInt(sensorIdIndex);
-//                            float a = cursor.getFloat(xIndex);
-//                            float b = cursor.getFloat(yIndex);
-//                            float c = cursor.getFloat(zIndex);
-//
-//                            Log.i("MainActivity", "Sensor Data: ID=" + id + ", Username=" + username +
-//                                    ", SensorID=" + sensorId + ", X=" + a + ", Y=" + b + ", Z=" + c);
-//                        }
-//                        cursor.close();
-//                    }
                 }
-//                Log.e("TAG", "i  +" + i+ " " + String.valueOf(num));
 
             }
             // 0 1 2 3 4 5 6 7 8 9
@@ -233,10 +210,6 @@ public class ConnectedThread extends Thread{
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-//            if(!Arrays.toString(MainActivity.wheelData).equals(Arrays.toString(lastData))){//数组是否相等的判断！！！
-//                btWriteInt(MainActivity.wheelData);
-//            }
-//            lastData=MainActivity.wheelData;//做完一次发送重新给lastData赋值
         }
     }
 
