@@ -153,18 +153,6 @@ public class BluetoothActivity extends AppCompatActivity {
         btList.setAdapter(btNames);
     }
 
-//    BluetoothAdapter.LeScanCallback oldBtsc = new BluetoothAdapter.LeScanCallback() {
-//        @Override
-//        public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
-//            Log.d(TAG,"here is onLeScan");
-//            if(device.getName() != null && !readyDevices.contains(device)){
-//                readyDevices.add(device);
-//                devicesNames.add(device.getName());
-//                btNames.notifyDataSetChanged();
-//                Log.d(TAG,"there are many devices!");
-//            }
-//        }
-//    };
 
     @SuppressLint("MissingPermission")
     private void scanBle(){
@@ -192,14 +180,6 @@ public class BluetoothActivity extends AppCompatActivity {
 
         }
 
-//        bluetoothAdapter.startLeScan(oldBtsc);
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                Log.d(TAG,"here is run");
-//                bluetoothAdapter.stopLeScan(oldBtsc);
-//            }
-//        },8000);
 
     }
 
@@ -211,6 +191,16 @@ public class BluetoothActivity extends AppCompatActivity {
                 // Get the BluetoothDevice object from the Intent
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 // Add the name and address to an array adapter to show in a Toast
+                if (ActivityCompat.checkSelfPermission(BluetoothActivity.this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return;
+                }
                 if(!readyDevices.contains(device) && device.getName() != null){
                     readyDevices.add(device);
                     devicesNames.add(device.getName());
