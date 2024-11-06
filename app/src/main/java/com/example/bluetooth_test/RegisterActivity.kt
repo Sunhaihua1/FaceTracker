@@ -36,8 +36,9 @@ class RegisterActivity : AppCompatActivity() {
 
     //跳转回登录页面
     fun gobak(view: View?) {
-        val gl = Intent(this@RegisterActivity, LoginActivity::class.java)
-        startActivity(gl)
+//        val gl = Intent(this@RegisterActivity, LoginActivity::class.java)
+//        startActivity(gl)
+        finish();
     }
 
     //注册逻辑实现

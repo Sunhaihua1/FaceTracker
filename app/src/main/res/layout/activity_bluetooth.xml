@@ -6,50 +6,72 @@
     android:layout_height="match_parent"
     tools:context=".BluetoothActivity">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="616dp"
-        android:background="@color/cyran"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:id="@+id/list_title"
         android:gravity="center"
-        android:text="设备列表"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="#FFFFD0"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="@drawable/corner_corlor"
+            android:gravity="center"
+            android:text="@string/DevicesList"
+            android:textColor="#000000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
+
 
     <ListView
         android:id="@+id/btList"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/list_title" />
 
 
     <Button
         android:id="@+id/back"
-        android:layout_width="84dp"
+        android:layout_width="80dp"
         android:layout_height="49dp"
         android:layout_marginBottom="45dp"
-        android:text="断开"
+        android:layout_marginStart="0dp"
+        android:text="@string/back"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/corner_corlor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/corner_corlor"
+        android:text="扫描"
+        app:layout_constraintBottom_toBottomOf="@+id/back"
+        app:layout_constraintEnd_toStartOf="@+id/next"
+        app:layout_constraintStart_toEndOf="@+id/back"
+        app:layout_constraintTop_toTopOf="@+id/back" />
 
     <Button
         android:id="@+id/next"
-        android:layout_width="160dp"
+        android:layout_width="100dp"
         android:layout_height="49dp"
         android:layout_marginBottom="45dp"
-        android:text="(未连接)查看状态"
+        android:text="查看状态"
+        android:background="@drawable/corner_corlor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.8"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

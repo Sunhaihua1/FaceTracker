@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Face Tracker</string>
-    <string name="connect">Connect</string>
-    <string name="takePhoto">Photo</string>
+    <string name="connect">继续</string>
+    <string name="takePhoto">拍照</string>
     <string name="send_a">Send \'a\'</string>
     <string name="send_b">Send \'b\'</string>
     <string name="title_activity_plot">PlotActivity</string>
@@ -165,4 +165,6 @@
     <string name="sensor_threshold3">MAX</string>
 
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="back">返回</string>
+    <string name="DevicesList">设备列表</string>
 </resources>

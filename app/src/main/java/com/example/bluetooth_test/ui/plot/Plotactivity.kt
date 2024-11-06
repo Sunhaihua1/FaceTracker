@@ -15,6 +15,7 @@ import android.content.pm.PackageManager;
 import android.database.Cursor
 import android.net.Uri
 import android.os.Environment;
+import android.os.Looper
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -42,6 +43,7 @@ class Plotactivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPlotactivityBinding
     private var mySQLiteOpenHelper: MySQLiteOpenHelper? = null
+    private lateinit var thread: Thread
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,7 +79,19 @@ class Plotactivity : AppCompatActivity() {
     ) { result ->
         if (result.resultCode == RESULT_OK) {
             result.data?.data?.let { uri ->
-                saveSensorDataToExcel(uri)
+                thread = Thread {
+                    this.runOnUiThread {
+                        Toast.makeText(this@Plotactivity,"正在保存中，请耐心等待",Toast.LENGTH_LONG).show()
+                    }
+
+                    saveSensorDataToExcel(uri)
+                    this.runOnUiThread {
+                        Toast.makeText(this@Plotactivity,"保存成功",Toast.LENGTH_LONG).show()
+                    }
+
+                }
+                thread.start()
+
             }
         }
     }
@@ -121,13 +135,12 @@ class Plotactivity : AppCompatActivity() {
                 contentResolver.openOutputStream(uri)?.use { outputStream ->
                     workbook.write(outputStream)
                     workbook.close()
-                    Toast.makeText(this, "Excel file saved successfully", Toast.LENGTH_SHORT).show()
+
                 }
             } catch (e: IOException) {
                 Log.e("MainActivity", "Error writing Excel file", e)
-                Toast.makeText(this, "Failed to save Excel file", Toast.LENGTH_SHORT).show()
+
             }
         }
     }
-
 }
