@@ -35,7 +35,7 @@ import kotlin.math.max
 class PlaceholderFragment : Fragment() {
     val arr_region = arrayOf(arrayOf(1, 2, 3, 4),arrayOf(3,4, 5, 6), arrayOf(7,8),arrayOf(5,6))
     val state: Array<String> = arrayOf("正常","轻度","中度","重度")
-    val myArray = arrayOf("眉毛左Sensor", "眉毛右Sensor", "脸颊左Sensor","脸颊右Sensor","嘴唇左Sensor","嘴唇右Sensor","下颚左Sensor","下颚右Sensor")
+    val myArray = arrayOf("嘴唇右", "嘴唇左", "脸颊右","脸颊左","眉毛右","眉毛左","下颚右","下颚左")
     private var _binding: FragmentPlotactivityBinding? = null
     private var Fragment_id: Int? = null;
     val arrList : MutableList<LineChart> = mutableListOf<LineChart>()
