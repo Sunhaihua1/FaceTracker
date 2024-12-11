@@ -1,6 +1,6 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="眉毛左Sensor1">
+    <PreferenceCategory app:title="嘴唇右">
 
         <EditTextPreference
             app:key="Sensor1_0"
@@ -30,7 +30,7 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="眉毛右Sensor2">
+    <PreferenceCategory app:title="嘴唇左">
 
         <EditTextPreference
             app:key="Sensor2_0"
@@ -59,7 +59,7 @@
             />
 
     </PreferenceCategory>
-    <PreferenceCategory app:title="脸颊左Sensor3">
+    <PreferenceCategory app:title="脸颊右">
 
         <EditTextPreference
             app:key="Sensor3_0"
@@ -88,7 +88,7 @@
             />
 
     </PreferenceCategory>
-    <PreferenceCategory app:title="脸颊右Sensor4">
+    <PreferenceCategory app:title="脸颊左">
 
         <EditTextPreference
             app:key="Sensor4_0"
@@ -117,7 +117,7 @@
             />
 
     </PreferenceCategory>
-    <PreferenceCategory app:title="嘴唇左Sensor5">
+    <PreferenceCategory app:title="眉毛右">
 
         <EditTextPreference
             app:key="Sensor5_0"
@@ -146,7 +146,7 @@
             />
 
     </PreferenceCategory>
-    <PreferenceCategory app:title="嘴唇右Sensor6">
+    <PreferenceCategory app:title="眉毛左">
 
         <EditTextPreference
             app:key="Sensor6_0"
@@ -175,7 +175,7 @@
             />
 
     </PreferenceCategory>
-    <PreferenceCategory app:title="下颚左Sensor7">
+    <PreferenceCategory app:title="下颚右">
 
         <EditTextPreference
             app:key="Sensor7_0"
@@ -204,7 +204,7 @@
             />
 
     </PreferenceCategory>
-    <PreferenceCategory app:title="下颚右Sensor8">
+    <PreferenceCategory app:title="下颚左">
 
         <EditTextPreference
             app:key="Sensor8_0"

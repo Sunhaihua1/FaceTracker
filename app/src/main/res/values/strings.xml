@@ -48,10 +48,10 @@
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
     <string name="title_activity_plotactivity">Plotactivity</string>
-    <string name="tab_text_1">面部表情肌</string>
-    <string name="tab_text_2">唇及眼眶</string>
-    <string name="tab_text_3">颚</string>
-    <string name="tab_text_4">舌</string>
+    <string name="tab_text_1">区域1</string>
+    <string name="tab_text_2">区域2</string>
+    <string name="tab_text_3">区域3</string>
+    <string name="tab_text_4">区域4</string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
