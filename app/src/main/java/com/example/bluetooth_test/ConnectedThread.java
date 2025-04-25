@@ -35,18 +35,23 @@ public class ConnectedThread extends Thread{
     int k = 0;
 //    public static float data = 0;
     Sensor_data[][] sensor_var = new Sensor_data[9][10]; short[] var_idx = new short[9];//求方差数组 对应[传感器编号][xyz轴][长度]
-    public static int[][] sensor_state_cnt = new int[9][4]; //传感器状态存储 [传感器编号][正常/轻度/中度/重度]
-    public static int[] cur_state = new int[9]; //传感器现有状态 0 1 2 3 -->>>>>>> 正常/轻度/中度/重度
+    public int[][] sensor_state_cnt = new int[9][4]; //传感器状态存储 [传感器编号][正常/轻度/中度/重度]
+    public int[] cur_state = new int[9]; //传感器现有状态 0 1 2 3 -->>>>>>> 正常/轻度/中度/重度
     boolean[] get_var_flag = new boolean[9]; //9个传感器大于10个再求方差
     BluetoothSocket bluetoothSocket=null;
     InputStream inputStream=null;//获取输入数据
     OutputStream outputStream=null;//获取输出数据
     SharedPreferences sharedPreferences;
+    private Context appContext; // 使用 Application Context
+    private static volatile ConnectedThread instance;
+
     public ConnectedThread(BluetoothSocket bluetoothSocket, Context context){
         this.bluetoothSocket=bluetoothSocket;
         //先新建暂时的Stream
         InputStream inputTemp=null;
         OutputStream outputTemp=null;
+        this.appContext = context.getApplicationContext(); // 使用 Application Context
+
         try {
             inputTemp=this.bluetoothSocket.getInputStream();
             outputTemp=this.bluetoothSocket.getOutputStream();
@@ -57,21 +62,48 @@ public class ConnectedThread extends Thread{
         }
         inputStream=inputTemp;
         outputStream=outputTemp;
-        this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
-        mySQLiteOpenHelper = new MySQLiteOpenHelper(context);
-
-
+        this.sharedPreferences = PreferenceManager.getDefaultSharedPreferences(appContext);
+        mySQLiteOpenHelper = new MySQLiteOpenHelper(appContext);
     }
+    // 获取单例（双重校验锁，线程安全）
+    // 初始化单例（必须调用一次）
+    public static synchronized void initialize(BluetoothSocket socket, Context context) {
+        if (instance == null) {
+            instance = new ConnectedThread(socket, context);
+        } else {
+            // 可选：如果已存在实例，更新Socket（根据需求决定）
+            instance.updateSocket(socket);
+        }
+    }
+    // 获取单例（前提是已经初始化）
+    public static ConnectedThread getInstance() {
+        if (instance == null) {
+            throw new IllegalStateException("ConnectedThread must be initialized first!");
+        }
+        return instance;
+    }
+    // 更新Socket（如果需要）
+    private void updateSocket(BluetoothSocket newSocket) {
+        try {
+            if (bluetoothSocket != null) {
+                bluetoothSocket.close();
+            }
+            bluetoothSocket = newSocket;
+            // 重新初始化流
+            inputStream = newSocket.getInputStream();
+            outputStream = newSocket.getOutputStream();
+        } catch (IOException e) {
+            Log.e("ConnectedThread", "Failed to update socket", e);
+        }
+    }
+
     public void process_packet() {
 //
         if (k <= 0) return;
         byte tmp = packBuffer[k - 1];
-//        Log.e("TAG", Arrays.toString(packBuffer));
-
         byte valid = 0;
         for (int i = 0; i < k - 1; i ++) {
             valid += packBuffer[i];
-//            Log.e("TAG", "i  +" + i+ " " + String.valueOf(packBuffer[i]));
         }
         if (valid == tmp) {
             int state = 0;
@@ -81,7 +113,7 @@ public class ConnectedThread extends Thread{
                 t_high = (short) (t_high << 8);
                 short t_short = (short) (packBuffer[i] & 0xFF);
                 int tt = t_high | t_short;
-                float num = (180.0F * tt) / 32768.0F;
+                float num = (156.8F * tt) / 32768.0F;
                 if ((j % 3) == 0) {
                     x = num;
                 }

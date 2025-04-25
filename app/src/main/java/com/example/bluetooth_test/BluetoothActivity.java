@@ -27,6 +27,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.bluetooth_test.ui.plot.Plotactivity;
+import com.example.bluetooth_test.ui.video.Video_record;
 
 import org.apache.poi.ss.formula.functions.T;
 
@@ -60,10 +61,6 @@ public class BluetoothActivity extends AppCompatActivity {
     //自定义线程类的初始化
     static ConnectThread connectThread=null;
     static ConnectedThread connectedThread=null;
-
-
-
-
 
 
     @SuppressLint("MissingPermission")
@@ -102,12 +99,13 @@ public class BluetoothActivity extends AppCompatActivity {
                 }
                 else {
                     if(bluetoothSocket!=null&&bluetoothSocket.isConnected()){//先判断连接上了
-                        connectedThread=new ConnectedThread(bluetoothSocket,context);
+                        ConnectedThread.initialize(bluetoothSocket, context);
+                        connectedThread = ConnectedThread.getInstance();
                         connectedThread.start();
                         Toast.makeText(BluetoothActivity.this,"已开启数据线程",Toast.LENGTH_SHORT).show();
                     }
 
-                    intent=new Intent(BluetoothActivity.this, Plotactivity.class);
+                    intent=new Intent(BluetoothActivity.this, Video_record.class);
                     startActivity(intent);
 
                 }

@@ -59,7 +59,6 @@ class Plotactivity : AppCompatActivity() {
         val floatBtn: FloatingActionButton = binding.floatingActionButton
         floatBtn.setOnClickListener {
             intent = Intent(this, SettingsActivity::class.java)
-//            intent= Intent(this@MainActivity,SettingsActivity::class.java)
             startActivity(intent)
         }
         binding.saveButton.setOnClickListener {
