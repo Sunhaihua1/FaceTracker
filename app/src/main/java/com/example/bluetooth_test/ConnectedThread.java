@@ -21,6 +21,9 @@ import java.util.Queue;
 public class ConnectedThread extends Thread{
     Queue<Byte> queueBuffer = new LinkedList<>();
     private MySQLiteOpenHelper mySQLiteOpenHelper;
+    //数据库存储开关
+    private volatile boolean shouldStoreToDB = false;
+
     public static ArrayList<Queue<Sensor_data>> data_sensor;
     static {
         // 初始化ArrayList，初始容量为3（这仅仅是内部数组的大小，并不是实际元素数量）
@@ -44,6 +47,10 @@ public class ConnectedThread extends Thread{
     SharedPreferences sharedPreferences;
     private Context appContext; // 使用 Application Context
     private static volatile ConnectedThread instance;
+    // 提供一个公共方法供外部控制
+    public void setShouldStoreToDB(boolean enable) {
+        this.shouldStoreToDB = enable;
+    }
 
     public ConnectedThread(BluetoothSocket bluetoothSocket, Context context){
         this.bluetoothSocket=bluetoothSocket;
@@ -127,9 +134,11 @@ public class ConnectedThread extends Thread{
                         data_sensor.get(state).poll();
                     }
                     data_sensor.get(state).add(sensor);
-                    long sensorDataId = mySQLiteOpenHelper.insertSensorData(sensor);
-                    Log.i("ConnectedThread", "Sensor data inserted with ID: " + sensorDataId);
-
+                    // 只在开关开启时存储到数据库
+                    if (shouldStoreToDB) {
+                        long sensorDataId = mySQLiteOpenHelper.insertSensorData(sensor);
+                        Log.i("ConnectedThread", "Sensor data inserted with ID: " + sensorDataId);
+                    }
                     sensor_var[state][var_idx[state]] = sensor;
                     var_idx[state] ++;
                     if (var_idx[state] >= 10) {

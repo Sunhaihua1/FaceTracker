@@ -116,9 +116,54 @@ class MySQLiteOpenHelper(@Nullable context: Context?) : SQLiteOpenHelper(context
         val db = readableDatabase
         return db.query("sensor_data", null, "username=?", arrayOf(username), null, null, null)
     }
+
     fun getSensorDataByCurrentUser(): Cursor {
         val db = readableDatabase
         return db.query("sensor_data", null, "username=?", arrayOf(currentUsername), null, null, null)
+    }
+    /**
+     * 获取指定时间范围内的传感器数据
+     * @param startTime 开始时间戳
+     * @param endTime 结束时间戳
+     */
+    fun getSensorDataByTimeRange(startTime: Long, endTime: Long): Cursor {
+        if (currentUsername == null) {
+            throw IllegalStateException("User is not logged in")
+        }
+
+        val db = readableDatabase
+        return db.query(
+            "sensor_data",
+            null,
+            "timestamp BETWEEN ? AND ? AND username = ?",
+            arrayOf(startTime.toString(), endTime.toString(), currentUsername),
+            null,
+            null,
+            "timestamp ASC"
+        )
+    }
+
+
+    /**
+     * 获取最新的N条传感器数据
+     * @param limit 要获取的记录数
+     */
+    fun getLatestSensorData(limit: Int): Cursor {
+        if (currentUsername == null) {
+            throw IllegalStateException("User is not logged in")
+        }
+
+        val db = readableDatabase
+        return db.query(
+            "sensor_data",
+            null,
+            "username = ?",
+            arrayOf(currentUsername),
+            null,
+            null,
+            "timestamp DESC",
+            limit.toString()
+        )
     }
 
     fun getCurrentUsername(): String? {
